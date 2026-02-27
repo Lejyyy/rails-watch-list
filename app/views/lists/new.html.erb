@@ -1,12 +1,63 @@
-<h1>Create a new list</h1>
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6 col-lg-5">
+      <div class="card border-0 shadow-lg overflow-hidden" style="border-radius: 1rem;">
 
-<%= form_with model: @list, local: true do |form| %>
-  <div>
-    <%= form.label :name %><br>
-    <%= form.text_field :name %>
+        <div class="header-gradient">
+          <h2 class="mb-0 fw-bold text-center text-dark">
+            <i class="fas fa-plus-circle me-2"></i>Create New List
+          </h2>
+        </div>
+
+        <div class="card-body p-4">
+          <%= form_with model: @list, local: true do |form| %>
+            <div class="mb-4">
+              <%= form.label :name, class: "form-label fw-semibold text-white" do %>
+                <i class="fas fa-list me-1 text-neon"></i>List Name
+              <% end %>
+
+              <div class="input-group input-group-lg">
+                <span class="input-group-text bg-transparent border-end-0" style="border-color: rgba(255,255,255,0.1);">
+                  <i class="fas fa-tag text-muted"></i>
+                </span>
+                <%= form.text_field :name,
+                                    class: "form-control modern-input border-start-0",
+                                    placeholder: "e.g., Sci-Fi Favorites, Weekend Movies...",
+                                    required: true,
+                                    autofocus: true %>
+              </div>
+
+              <div class="form-text text-muted">
+                <i class="fas fa-info-circle me-1"></i>Choose a memorable name for your list
+              </div>
+            </div>
+
+            <div class="d-grid gap-2">
+              <%= form.submit class: "btn btn-neon btn-lg rounded-pill fw-bold" do %>
+                <i class="fas fa-plus me-2"></i>Create My List
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+
+        <div class="card-footer bg-transparent py-3 text-center" style="border-color: rgba(255,255,255,0.1);">
+          <%= link_to lists_path, class: "text-muted text-decoration-none fw-semibold hover-text-neon" do %>
+            <i class="fas fa-arrow-left me-1"></i>Back to all lists
+          <% end %>
+        </div>
+
+      </div>
+    </div>
   </div>
+</div>
 
-  <%= form.submit "Create list" %>
-<% end %>
+<style>
+  .hover-text-neon {
+    transition: color 0.3s ease;
+  }
+  
+  .hover-text-neon:hover {
+    color: var(--neon-yellow) !important;
+  }
+</style>
 
-<%= link_to "Back to all lists", lists_path %>

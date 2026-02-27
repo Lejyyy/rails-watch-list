@@ -1,12 +1,130 @@
-<h1><%= @list.name %></h1>
+<div class="container py-5">
+  <div class="mb-4">
+    <%= link_to lists_path, class: "btn btn-outline-neon rounded-pill fw-semibold" do %>
+      <i class="fas fa-arrow-left me-1"></i>Back to Lists
+    <% end %>
+  </div>
 
-<ul>
-  <% @list.bookmarks.each do |bookmark| %>
-    <li>
-      <%= bookmark.movie.title %> — <%= bookmark.comment %>
-      <%= link_to "Delete", bookmark_path(bookmark), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
-    </li>
+  <div class="text-center mb-5">
+    <h1 class="display-4 fw-bold mb-3">
+      <i class="fas fa-list-ul text-neon me-2"></i><%= @list.name %>
+    </h1>
+    <p class="lead text-muted">
+      <span class="badge-neon">
+        <i class="fas fa-film me-1"></i><%= @list.bookmarks.count %> movies
+      </span>
+    </p>
+  </div>
+
+  <% if @list.bookmarks.empty? %>
+    <div class="empty-state animate-in">
+      <div class="mb-4">
+        <i class="fas fa-popcorn"></i>
+      </div>
+      <h3 class="text-white mb-2">No movies yet</h3>
+      <p class="text-muted mb-4">Add your first movie to this list</p>
+      <%= link_to new_list_bookmark_path(@list), class: "btn btn-neon btn-lg rounded-pill px-4 fw-bold" do %>
+        <i class="fas fa-plus me-2"></i>Add Movie
+      <% end %>
+    </div>
+  <% else %>
+    <div class="row g-4">
+      <% @list.bookmarks.each_with_index do |bookmark, index| %>
+        <div class="col-12 animate-in" style="animation-delay: <%= index * 0.1 %>s">
+          <div class="card mb-3 bookmark-card overflow-hidden" style="border-radius: 1rem;">
+            <div class="row g-0">
+
+              <div class="col-md-2">
+                <% if bookmark.movie.poster_url.present? %>
+                  <img src="<%= bookmark.movie.poster_url %>"
+                       class="img-fluid"
+                       alt="<%= bookmark.movie.title %>"
+                       style="height: 200px; width: 100%; object-fit: cover; border-radius: 1rem 0 0 1rem;">
+                <% else %>
+                  <div class="d-flex align-items-center justify-content-center h-100" style="background: linear-gradient(135deg, #1a1a1a, #2d2d2d); border-radius: 1rem 0 0 1rem;">
+                    <i class="fas fa-film fa-3x text-neon" style="opacity: 0.5;"></i>
+                  </div>
+                <% end %>
+              </div>
+
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h5 class="card-title fw-bold text-white mb-2">
+                    <i class="fas fa-star text-neon me-2"></i><%= bookmark.movie.title %>
+                  </h5>
+                  <p class="card-text text-muted mb-0">
+                    <%= bookmark.movie.overview.presence || "No overview available" %>
+                  </p>
+                  <% if bookmark.comment.present? %>
+                    <div class="alert alert-warning py-2 px-3 mt-3 mb-0 d-inline-block">
+                      <i class="fas fa-comment-alt me-1"></i>
+                      <small><%= bookmark.comment %></small>
+                    </div>
+                  <% end %>
+                </div>
+              </div>
+
+              <div class="col-md-2 d-flex align-items-center justify-content-center">
+                <%= link_to bookmark_path(bookmark),
+                             class: "btn btn-outline-danger rounded-pill fw-semibold",
+                             data: { turbo_method: :delete, turbo_confirm: "Remove this movie from the list?" } do %>
+                  <i class="fas fa-trash me-1"></i>Delete
+                <% end %>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
   <% end %>
-</ul>
 
-<%= link_to "Add a movie", new_list_bookmark_path(@list) %>
+  <div class="text-center mt-4">
+    <%= link_to new_list_bookmark_path(@list), class: "btn btn-neon btn-lg rounded-pill shadow-lg px-5 fw-bold" do %>
+      <i class="fas fa-plus me-2"></i>Add Another Movie
+    <% end %>
+  </div>
+</div>
+
+<style>
+  /* Bookmark card specific styles */
+  .bookmark-card {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    background: rgba(26, 26, 26, 0.8);
+  }
+
+  .bookmark-card:hover {
+    transform: translateX(8px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(231, 242, 0, 0.1);
+    border-color: rgba(231, 242, 0, 0.2);
+  }
+
+  /* Delete button hover */
+  .btn-outline-danger {
+    border-color: #FF3B30;
+    color: #FF3B30;
+    transition: all 0.3s ease;
+  }
+
+  .btn-outline-danger:hover {
+    background: #FF3B30;
+    color: white;
+    box-shadow: 0 5px 20px rgba(255, 59, 48, 0.3);
+  }
+
+  /* Mobile adjustments */
+  @media (max-width: 768px) {
+    .bookmark-card .row.g-0 {
+      flex-direction: column;
+    }
+    .bookmark-card .col-md-2 img,
+    .bookmark-card .col-md-2 div {
+      height: 250px !important;
+      border-radius: 1rem 1rem 0 0;
+    }
+    .bookmark-card .col-md-2 {
+      margin-bottom: 1rem;
+    }
+  }
+</style>
+

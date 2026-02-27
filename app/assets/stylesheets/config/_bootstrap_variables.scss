@@ -1,28 +1,87 @@
-// This is where you override default Bootstrap variables
-// 1. Find all Bootstrap variables that you can override at the end of each component's documentation under the `Sass variables` anchor
-// e.g. here are the ones you can override for the navbar https://getbootstrap.com/docs/5.3/components/navbar/#sass-variables
-// 2. These variables are defined with default value (see https://robots.thoughtbot.com/sass-default)
-// 3. You can override them below!
+// Bootstrap Variables - 2026 Dark Theme
+// Override default Bootstrap variables for modern black/yellow aesthetic
+
+// 1. Find all Bootstrap variables at the end of each component's documentation
+// e.g. https://getbootstrap.com/docs/5.3/components/buttons/#sass-variables
 
 // General style
 $font-family-sans-serif: $body-font;
-$headings-font-family:   $headers-font;
-$body-bg:                $light-gray;
-$font-size-base:         1rem;
+$headings-font-family: $headers-font;
+$body-bg: $black;
+$font-size-base: 1rem;
 
-// Colors
-$body-color: $gray;
-$primary:    $blue;
-$success:    $green;
-$info:       $yellow;
-$danger:     $red;
-$warning:    $orange;
+// Colors - Dark Theme
+$body-color: $off-white;
+$primary: $neon-yellow;
+$secondary: $charcoal;
+$success: $green;
+$info: $cyan;
+$danger: $red;
+$warning: $yellow;
+$light: $dark-gray;
+$dark: $black;
 
-// Buttons & inputs' radius
-$border-radius-sm:            .0625rem;
-$border-radius:               .125rem;
-$border-radius-lg:            .25rem;
-$border-radius-xl:            .5rem;
-$border-radius-xxl:           1rem;
+// Links
+$link-color: $neon-yellow;
+$link-hover-color: $yellow;
 
-// Override other variables below!
+// Text
+$text-muted: #888888;
+
+// Border radius
+$border-radius-sm: 0.25rem;
+$border-radius: 0.5rem;
+$border-radius-lg: 0.75rem;
+$border-radius-xl: 1rem;
+$border-radius-xxl: 1.5rem;
+
+// Cards
+$card-bg: $charcoal;
+$card-border-color: $dark-gray;
+
+// Forms
+$input-bg: $charcoal;
+$input-color: $off-white;
+$input-border-color: $dark-gray;
+$input-focus-border-color: $neon-yellow;
+$input-focus-box-shadow: 0 0 0 0.2rem rgba($neon-yellow, 0.25);
+$input-placeholder-color: #666666;
+
+// Buttons
+$btn-padding-y: 0.75rem;
+$btn-padding-x: 1.5rem;
+$btn-font-weight: 600;
+
+// Badges
+$badge-bg: $neon-yellow;
+$badge-color: $black;
+$badge-font-weight: 600;
+
+// Box shadows - Modern subtle shadows
+$box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+$box-shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.3);
+$box-shadow-lg: 0 8px 40px rgba(0, 0, 0, 0.5);
+
+// Gradients
+$enable-gradients: true;
+
+// Transitions
+$transition-base: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+// Spacing
+$spacer: 1rem;
+
+// Grid
+$grid-gutter-width: 1.5rem;
+
+// Modal
+$modal-content-bg: $charcoal;
+$modal-content-border-color: $dark-gray;
+
+// Dropdowns
+$dropdown-bg: $charcoal;
+$dropdown-border-color: $dark-gray;
+$dropdown-link-color: $off-white;
+$dropdown-link-hover-bg: $dark-gray;
+$dropdown-link-hover-color: $neon-yellow;
+

@@ -1,19 +1,20 @@
 class BookmarksController < ApplicationController
   def new
     @bookmark = Bookmark.new
+    @list = List.find(params[:list_id])
   end
 
-def create
-  @list = List.find(params[:list_id])
-  @bookmark = Bookmark.new(bookmark_params)
-  @bookmark.list = @list
+  def create
+    @list = List.find(params[:list_id])
+    @bookmark = Bookmark.new(bookmark_params)
+    @bookmark.list = @list
 
-  if @bookmark.save
+    if @bookmark.save
     redirect_to @list
-  else
-    render :new
+    else
+      render :new, status: :unprocessable_entity
+    end
   end
-end
 
   def destroy
     @bookmark = Bookmark.find(params[:id])
@@ -23,11 +24,7 @@ end
 
   private
 
-  def set_list
-    @list = List.find(params[:list_id])
-  end
-
   def bookmark_params
-  params.require(:bookmark).permit(:comment, :movie_id)
+    params.require(:bookmark).permit(:comment, :movie_id)
   end
 end

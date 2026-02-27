@@ -1,15 +1,102 @@
-<h1>Add a movie to <%= @list.name %></h1>
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6 col-lg-5">
+      <div class="card border-0 shadow-lg overflow-hidden" style="border-radius: 1rem;">
 
-<%= form_with model: [@list, @bookmark], local: true do |form| %>
-  <div>
-    <%= form.label :movie_id, "Movie" %>
-    <%= form.collection_select :movie_id, Movie.all, :id, :title %>
+        <div class="header-gradient">
+          <h2 class="mb-0 fw-bold text-center text-dark">
+            <i class="fas fa-film me-2"></i>Add Movie
+          </h2>
+          <p class="text-center text-dark opacity-75 mb-0">to <%= @list.name %></p>
+        </div>
+
+        <div class="card-body p-4">
+          <%= form_with model: [@list, @bookmark], local: true do |form| %>
+            <div class="mb-4">
+              <%= form.label :movie_id, class: "form-label fw-semibold text-white" do %>
+                <i class="fas fa-film me-1 text-neon"></i>Select Movie
+              <% end %>
+
+              <div class="input-group input-group-lg">
+                <span class="input-group-text bg-transparent border-end-0" style="border-color: rgba(255,255,255,0.1);">
+                  <i class="fas fa-video text-muted"></i>
+                </span>
+                <%= form.collection_select :movie_id,
+                                            Movie.all.order(:title),
+                                            :id,
+                                            :title,
+                                            { prompt: "Choose a movie..." },
+                                            class: "form-select modern-input border-start-0",
+                                            required: true,
+                                            style: "border-radius: 0 0.75rem 0.75rem 0;" %>
+              </div>
+            </div>
+
+            <div class="mb-4">
+              <%= form.label :comment, class: "form-label fw-semibold text-white" do %>
+                <i class="fas fa-comment me-1 text-neon"></i>Your Notes
+              <% end %>
+
+              <div class="input-group">
+                <span class="input-group-text bg-transparent border-end-0 align-self-start pt-3" style="border-color: rgba(255,255,255,0.1);">
+                  <i class="fas fa-pen text-muted"></i>
+                </span>
+                <%= form.text_area :comment,
+                                   class: "form-control modern-input border-start-0",
+                                   placeholder: "Why do you love this movie? Any memorable scenes?",
+                                   rows: 4 %>
+              </div>
+
+              <div class="form-text text-muted">
+                <i class="fas fa-info-circle me-1"></i>Optional: Add a personal note
+              </div>
+            </div>
+
+            <div class="d-grid gap-2">
+              <%= form.submit class: "btn btn-neon btn-lg rounded-pill fw-bold" do %>
+                <i class="fas fa-plus me-2"></i>Add Movie
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+
+        <div class="card-footer bg-transparent py-3 text-center" style="border-color: rgba(255,255,255,0.1);">
+          <%= link_to list_path(@list), class: "text-muted text-decoration-none fw-semibold hover-text-neon" do %>
+            <i class="fas fa-arrow-left me-1"></i>Back to list
+          <% end %>
+        </div>
+
+      </div>
+    </div>
   </div>
+</div>
 
-  <div>
-    <%= form.label :comment %>
-    <%= form.text_field :comment %>
-  </div>
+<style>
+  .hover-text-neon {
+    transition: color 0.3s ease;
+  }
+  
+  .hover-text-neon:hover {
+    color: var(--neon-yellow) !important;
+  }
 
-  <%= form.submit "Add bookmark" %>
-<% end %>
+  .modern-input:focus {
+    background: rgba(26, 26, 26, 1);
+    border-color: var(--neon-yellow) !important;
+    box-shadow: 0 0 0 3px rgba(231, 242, 0, 0.15);
+    color: #fff;
+    outline: none;
+  }
+
+  .form-select {
+    background-color: rgba(26, 26, 26, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #fff;
+  }
+
+  .form-select option {
+    background: #1a1a1a;
+    color: #fff;
+  }
+</style>
+
